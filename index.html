@@ -19,29 +19,43 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #f9fafb;
-      color: #1f2937;
+      background: #000;
+      color: #e0e0e0;
       line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.7;
     }
 
     header {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      color: white;
+      position: relative;
+      z-index: 1;
       text-align: center;
-      padding: 5rem 1rem 4rem;
+      padding: 8rem 1rem 6rem;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
     }
 
     header h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 8vw, 5rem);
-      margin-bottom: 1rem;
+      font-size: clamp(3.5rem, 10vw, 6.5rem);
+      margin-bottom: 1.2rem;
+      color: #00ff9d;
+      text-shadow: 0 0 20px rgba(0,255,157,0.6);
     }
 
     header p {
-      font-size: 1.3rem;
-      max-width: 700px;
+      font-size: 1.4rem;
+      max-width: 800px;
       margin: 0 auto;
-      opacity: 0.95;
+      color: #d1d5db;
     }
 
     .container {
@@ -51,58 +65,61 @@
     }
 
     section {
-      padding: 5rem 0;
+      padding: 6rem 0;
     }
 
     h2 {
       text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
-      color: #1e293b;
+      font-size: 2.8rem;
+      margin-bottom: 3.5rem;
+      color: #00ff9d;
+      text-shadow: 0 0 15px rgba(0,255,157,0.4);
     }
 
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
+      gap: 2.5rem;
     }
 
     .card {
-      background: white;
+      background: rgba(17, 24, 39, 0.85);
+      border: 1px solid rgba(0,255,157,0.15);
       border-radius: 1rem;
       overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      backdrop-filter: blur(8px);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-align: center;
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,255,157,0.2);
     }
 
     .card-header {
-      background: #f1f5f9;
-      padding: 2rem 1.5rem;
-      border-bottom: 1px solid #e2e8f0;
+      background: rgba(0,255,157,0.08);
+      padding: 2.2rem 1.5rem;
+      border-bottom: 1px solid rgba(0,255,157,0.15);
     }
 
     .card-header h3 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-      color: #1e293b;
+      font-size: 1.9rem;
+      margin-bottom: 0.6rem;
+      color: #00ff9d;
     }
 
     .price {
-      font-size: 3.2rem;
+      font-size: 3.5rem;
       font-weight: 700;
-      color: #4f46e5;
+      color: #00ff9d;
+      margin: 1.5rem 0;
     }
 
     .price small {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 400;
-      color: #64748b;
+      color: #9ca3af;
     }
 
     .features {
@@ -111,66 +128,64 @@
     }
 
     .features li {
-      margin-bottom: 1rem;
-      font-size: 1.05rem;
-      color: #475569;
+      margin-bottom: 1.1rem;
+      font-size: 1.1rem;
+      color: #d1d5db;
     }
 
     .features li:before {
       content: "✓ ";
-      color: #10b981;
+      color: #00ff9d;
       font-weight: bold;
-      margin-right: 0.5rem;
+      margin-right: 0.6rem;
     }
 
     .card-footer {
-      padding: 1.5rem;
-      border-top: 1px solid #e2e8f0;
+      padding: 1.8rem;
+      border-top: 1px solid rgba(0,255,157,0.15);
     }
 
     .btn {
       display: inline-block;
-      background: #4f46e5;
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 0.5rem;
+      background: #00ff9d;
+      color: #000;
+      padding: 1.1rem 2.5rem;
+      border-radius: 0.6rem;
       text-decoration: none;
       font-weight: 600;
-      transition: background 0.3s;
+      font-size: 1.1rem;
+      transition: all 0.3s;
     }
 
     .btn:hover {
-      background: #4338ca;
+      background: #00e088;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0,255,157,0.3);
     }
 
     .maintenance-section .pricing-grid {
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     }
 
-    .maintenance-section .card-header {
-      background: #ecfdf5;
-    }
-
-    .maintenance-section .price {
-      color: #059669;
-    }
-
     footer {
-      background: #1e293b;
-      color: #cbd5e1;
+      background: rgba(0,0,0,0.9);
+      color: #9ca3af;
       text-align: center;
-      padding: 3rem 1rem;
-      margin-top: 4rem;
+      padding: 4rem 1rem;
+      margin-top: 5rem;
+      border-top: 1px solid rgba(0,255,157,0.1);
     }
 
     @media (max-width: 768px) {
-      header { padding: 4rem 1rem 3rem; }
-      h2 { font-size: 2rem; }
-      .price { font-size: 2.8rem; }
+      header { padding: 6rem 1rem 4rem; }
+      h2 { font-size: 2.2rem; }
+      .price { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
+
+  <canvas id="c"></canvas>
 
   <header>
     <h1>Tu Negocio Online</h1>
@@ -185,7 +200,7 @@
         
         <div class="card">
           <div class="card-header">
-            <h3>Básico / Starter</h3>
+            <h3>Básico</h3>
           </div>
           <div class="price">200 €</div>
           <ul class="features">
@@ -202,7 +217,7 @@
 
         <div class="card">
           <div class="card-header">
-            <h3>Profesional / Pro</h3>
+            <h3>Pro</h3>
           </div>
           <div class="price">400 €</div>
           <ul class="features">
@@ -211,104 +226,4 @@
             <li>Sección blog / noticias</li>
             <li>Google Analytics + SEO básico</li>
             <li>Dominio + Cloudflare completo</li>
-          </ul>
-          <div class="card-footer">
-            <a href="mailto:tuemail@dominio.com?subject=Presupuesto%20Profesional" class="btn">Pedir presupuesto</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <h3>Avanzado / Premium</h3>
-          </div>
-          <div class="price">1.000 €</div>
-          <ul class="features">
-            <li>Todo lo Pro + APIs personalizadas</li>
-            <li>Calendario reservas / pagos Stripe</li>
-            <li>Newsletter integración</li>
-            <li>Backend ligero (Supabase/Firebase)</li>
-            <li>Preparado para e-commerce básico</li>
-          </ul>
-          <div class="card-footer">
-            <a href="mailto:tuemail@dominio.com?subject=Presupuesto%20Avanzado" class="btn">Pedir presupuesto</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="maintenance-section">
-      <h2>Planes de Mantenimiento Mensual</h2>
-      <div class="pricing-grid">
-        
-        <div class="card">
-          <div class="card-header">
-            <h3>Mantenimiento Básico</h3>
-          </div>
-          <div class="price">49 € <small>/mes</small></div>
-          <ul class="features">
-            <li>Copias de seguridad semanales</li>
-            <li>Monitoreo y actualizaciones seguridad</li>
-            <li>1 hora/mes cambios de contenido</li>
-          </ul>
-          <div class="card-footer">
-            <a href="mailto:tuemail@dominio.com?subject=Interesado%20en%20Mantenimiento%20Básico" class="btn">Contratar</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <h3>Mantenimiento Growth</h3>
-          </div>
-          <div class="price">89 € <small>/mes</small></div>
-          <ul class="features">
-            <li>Todo lo Básico</li>
-            <li>Cambios ilimitados pequeños</li>
-            <li>Informe mensual de rendimiento</li>
-            <li>Soporte prioritario (24 h)</li>
-          </ul>
-          <div class="card-footer">
-            <a href="mailto:tuemail@dominio.com?subject=Interesado%20en%20Mantenimiento%20Growth" class="btn">Contratar</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header">
-            <h3>Gestión Completa</h3>
-          </div>
-          <div class="price">159 € <small>/mes</small></div>
-          <ul class="features">
-            <li>Todo lo Growth</li>
-            <li>Creación contenido (2 posts blog o 8 RRSS/mes)</li>
-            <li>Optimizaciones mensuales velocidad/SEO</li>
-          </ul>
-          <div class="card-footer">
-            <a href="mailto:tuemail@dominio.com?subject=Interesado%20en%20Gestión%20Completa" class="btn">Contratar</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section style="text-align:center; padding-bottom:6rem;">
-      <h2>Extras a la carta</h2>
-      <p style="font-size:1.2rem; max-width:700px; margin:0 auto 2rem;">
-        Configuración dominio + email → <strong>99 €</strong><br>
-        Cloudflare Pro (seguridad extra) → <strong>149 €</strong><br>
-        Kit básico de marca (logo + colores) → <strong>199 €</strong>
-      </p>
-      <a href="mailto:tuemail@dominio.com?subject=Consulta%20sobre%20extras" class="btn" style="font-size:1.3rem; padding:1.2rem 3rem;">
-        Consultar precio personalizado
-      </a>
-    </section>
-
-  </div>
-
-  <footer>
-    <p>Precios sin IVA (21 %). Pagos seguros vía Stripe o transferencia.<br>
-    Entrega rápida gracias a herramientas IA – webs listas en días, no meses.<br>
-    © 2026 Tu Nombre / Tu Negocio Online</p>
-  </footer>
-
-</body>
-</html>
+          </ul
