@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Precios | Tu Negocio Online – Webs rápidas y baratas con IA</title>
+  <title>Precios | Tu Agencia Marketing – Webs rápidas y baratas con IA</title>
   <meta name="description" content="Precios claros y asequibles para pymes y autónomos en España. Webs profesionales en pocos días."/>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,18 +32,30 @@
       position: relative;
       z-index: 1;
       text-align: center;
-      padding: 8rem 1rem 6rem;
+      padding: 6rem 1rem 4rem;
       background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+    }
+    .logo-container {
+      margin-bottom: 1.5rem;
+    }
+    .logo {
+      max-width: 280px;
+      height: auto;
+      filter: drop-shadow(0 0 15px rgba(0,255,157,0.6));
+      transition: transform 0.4s ease;
+    }
+    .logo:hover {
+      transform: scale(1.05);
     }
     header h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3.5rem, 10vw, 6.5rem);
-      margin-bottom: 1.2rem;
+      font-size: clamp(3rem, 9vw, 5.5rem);
+      margin-bottom: 1rem;
       color: #00ff9d;
       text-shadow: 0 0 20px rgba(0,255,157,0.6);
     }
     header p {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       max-width: 800px;
       margin: 0 auto;
       color: #d1d5db;
@@ -192,7 +204,8 @@
       display: block;
     }
     @media (max-width: 768px) {
-      header { padding: 6rem 1rem 4rem; }
+      header { padding: 5rem 1rem 3rem; }
+      .logo { max-width: 220px; }
       h2 { font-size: 2.2rem; }
       .price { font-size: 3rem; }
       .modal-content { padding: 2rem; }
@@ -204,7 +217,10 @@
   <canvas id="matrix-canvas"></canvas>
 
   <header>
-    <h1>Tu Negocio Online</h1>
+    <div class="logo-container">
+      <img src="Futuristic Marketing Agency Logo 2.jpg" alt="Tu Agencia Marketing Logo" class="logo">
+    </div>
+    <h1>Tu Agencia Marketing</h1>
     <p>Webs profesionales, rápidas y asequibles para autónomos y pymes en España – creadas con IA para ahorrarte tiempo y dinero.</p>
   </header>
 
@@ -265,13 +281,12 @@
     <!-- Modal de formulario -->
     <div id="contactModal" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close">×</span>
         <h2 style="color:#00ff9d; margin-bottom:1.5rem; text-align:center;">Solicita tu presupuesto</h2>
         
-        <form id="contactForm" action="https://formspree.io/f/xbdaqkqq" method="POST">
-          <input type="hidden" name="_subject" value="Nuevo presupuesto solicitado - Tu Negocio Online" />
-          <input type="hidden" name="_next" value="" /> <!-- opcional: redirigir tras envío -->
-
+        <form id="contactForm" action="https://formspree.io/f/your-form-id-here" method="POST">
+          <input type="hidden" name="_subject" value="Nuevo presupuesto solicitado - Tu Agencia Marketing" />
+          
           <label for="name" style="display:block; margin-bottom:0.5rem; color:#d1d5db;">Nombre</label>
           <input type="text" id="name" name="name" required placeholder="Tu nombre" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:6px; border:1px solid #444; background:#111; color:#fff;" />
 
@@ -303,7 +318,7 @@
   <footer>
     <p>Precios sin IVA (21 %). Pagos seguros vía Stripe o transferencia.<br>
     Entrega rápida gracias a herramientas IA – webs listas en días, no meses.<br>
-    © 2026 Tu Nombre / Tu Negocio Online</p>
+    © 2026 Tu Agencia Marketing</p>
   </footer>
 
   <script>
