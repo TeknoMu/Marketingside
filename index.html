@@ -130,7 +130,9 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 1.1rem;
+      cursor: pointer;
       transition: all 0.3s;
+      border: none;
     }
     .btn:hover {
       background: #00e088;
@@ -145,10 +147,55 @@
       margin-top: 5rem;
       border-top: 1px solid rgba(0,255,157,0.1);
     }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.75);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid rgba(0,255,157,0.2);
+      border-radius: 12px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      backdrop-filter: blur(10px);
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: #00ff9d;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .close:hover { color: #fff; }
+    #form-message {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+    #form-message.success {
+      background: rgba(0,255,157,0.15);
+      color: #00ff9d;
+      display: block;
+    }
     @media (max-width: 768px) {
       header { padding: 6rem 1rem 4rem; }
       h2 { font-size: 2.2rem; }
       .price { font-size: 3rem; }
+      .modal-content { padding: 2rem; }
     }
   </style>
 </head>
@@ -168,9 +215,7 @@
       <div class="pricing-grid">
         
         <div class="card">
-          <div class="card-header">
-            <h3>Básico</h3>
-          </div>
+          <div class="card-header"><h3>Básico</h3></div>
           <div class="price">200 €</div>
           <ul class="features">
             <li>Web de 1–5 páginas (estática o simple)</li>
@@ -180,14 +225,12 @@
             <li>Optimización de velocidad</li>
           </ul>
           <div class="card-footer">
-            <a href="mailto:tuemail@dominio.com?subject=Presupuesto%20Básico" class="btn">Pedir presupuesto</a>
+            <button class="btn open-modal">Pedir presupuesto</button>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header">
-            <h3>Pro</h3>
-          </div>
+          <div class="card-header"><h3>Pro</h3></div>
           <div class="price">400 €</div>
           <ul class="features">
             <li>Hasta 10 páginas</li>
@@ -197,14 +240,12 @@
             <li>Dominio + Cloudflare completo</li>
           </ul>
           <div class="card-footer">
-            <a href="mailto:tuemail@dominio.com?subject=Presupuesto%20Pro" class="btn">Pedir presupuesto</a>
+            <button class="btn open-modal">Pedir presupuesto</button>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header">
-            <h3>Premium</h3>
-          </div>
+          <div class="card-header"><h3>Premium</h3></div>
           <div class="price">1000 €</div>
           <ul class="features">
             <li>Todo lo Pro + APIs personalizadas</li>
@@ -214,49 +255,62 @@
             <li>Preparado para e-commerce básico</li>
           </ul>
           <div class="card-footer">
-            <a href="mailto:tuemail@dominio.com?subject=Presupuesto%20Premium" class="btn">Pedir presupuesto</a>
+            <button class="btn open-modal">Pedir presupuesto</button>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- Mantenimiento section remains unchanged -->
-    <section>
-      <h2>Planes de Mantenimiento Mensual</h2>
-      <div class="pricing-grid">
-        <div class="card">
-          <div class="card-header"><h3>Mantenimiento Básico</h3></div>
-          <div class="price">49 € <small>/mes</small></div>
-          <ul class="features">
-            <li>Copias de seguridad semanales</li>
-            <li>Monitoreo y actualizaciones seguridad</li>
-            <li>1 hora/mes cambios de contenido</li>
-          </ul>
-          <div class="card-footer">
-            <a href="mailto:tuemail@dominio.com?subject=Interesado%20en%20Mantenimiento%20Básico" class="btn">Contratar</a>
-          </div>
-        </div>
-        <!-- ... the other two maintenance cards remain the same ... -->
-      </div>
-    </section>
+    <!-- Modal de formulario -->
+    <div id="contactModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 style="color:#00ff9d; margin-bottom:1.5rem; text-align:center;">Solicita tu presupuesto</h2>
+        
+        <form id="contactForm" action="https://formspree.io/f/your-form-id-here" method="POST">
+          <input type="hidden" name="_subject" value="Nuevo presupuesto solicitado - Tu Negocio Online" />
+          <input type="hidden" name="_next" value="" /> <!-- opcional: redirigir tras envío -->
 
-    <!-- Extras section remains unchanged -->
+          <label for="name" style="display:block; margin-bottom:0.5rem; color:#d1d5db;">Nombre</label>
+          <input type="text" id="name" name="name" required placeholder="Tu nombre" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:6px; border:1px solid #444; background:#111; color:#fff;" />
+
+          <label for="email" style="display:block; margin-bottom:0.5rem; color:#d1d5db;">Email</label>
+          <input type="email" id="email" name="email" required placeholder="tu@email.com" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:6px; border:1px solid #444; background:#111; color:#fff;" />
+
+          <label for="package" style="display:block; margin-bottom:0.5rem; color:#d1d5db;">Paquete de interés</label>
+          <select id="package" name="package" required style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:6px; border:1px solid #444; background:#111; color:#fff;">
+            <option value="">Selecciona uno</option>
+            <option value="Básico">Básico (200 €)</option>
+            <option value="Pro">Pro (400 €)</option>
+            <option value="Premium">Premium (1000 €)</option>
+            <option value="Mantenimiento">Solo mantenimiento</option>
+            <option value="Otro">Otro / consulta personalizada</option>
+          </select>
+
+          <label for="message" style="display:block; margin-bottom:0.5rem; color:#d1d5db;">Comentarios / Detalles del proyecto</label>
+          <textarea id="message" name="message" rows="4" placeholder="Cuéntame un poco sobre tu proyecto o necesidades..." style="width:100%; padding:0.8rem; margin-bottom:1.5rem; border-radius:6px; border:1px solid #444; background:#111; color:#fff; resize:vertical;"></textarea>
+
+          <button type="submit" class="btn" style="width:100%;">Enviar solicitud</button>
+        </form>
+
+        <div id="form-message" class="success"></div>
+      </div>
+    </div>
 
   </div>
 
   <footer>
     <p>Precios sin IVA (21 %). Pagos seguros vía Stripe o transferencia.<br>
-    Webs listas en días, no meses.<br>
-    © 2026 MarketingSide</p>
+    Entrega rápida gracias a herramientas IA – webs listas en días, no meses.<br>
+    © 2026 Tu Nombre / Tu Negocio Online</p>
   </footer>
 
   <script>
-    // Matrix rain – corrected canvas ID
+    // Matrix rain
     const canvas = document.getElementById('matrix-canvas');
     if (canvas) {
       const ctx = canvas.getContext('2d');
-
       function resizeCanvas() {
         canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
@@ -272,27 +326,69 @@
       function draw() {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = '#0f0'; // classic green
+        ctx.fillStyle = '#0f0';
         ctx.font = fontSize + 'px monospace';
-
         for (let i = 0; i < drops.length; i++) {
           const text = matrix[Math.floor(Math.random() * matrix.length)];
           const x = i * fontSize;
           const y = drops[i] * fontSize;
-
           ctx.fillText(text, x, y);
-
-          if (y > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
+          if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
           drops[i]++;
         }
       }
-
       setInterval(draw, 40);
     }
-  </script>
 
+    // Modal y formulario
+    const modal = document.getElementById('contactModal');
+    const closeBtn = document.querySelector('.close');
+    const form = document.getElementById('contactForm');
+    const messageDiv = document.getElementById('form-message');
+    const openButtons = document.querySelectorAll('.open-modal');
+
+    openButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+        messageDiv.style.display = 'none';
+        form.reset();
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      messageDiv.style.display = 'none';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          messageDiv.textContent = '¡Solicitud enviada! Te responderemos en breve.';
+          messageDiv.className = 'success';
+          messageDiv.style.display = 'block';
+          form.reset();
+        } else {
+          throw new Error('Error al enviar');
+        }
+      } catch (err) {
+        messageDiv.textContent = 'Hubo un problema al enviar. Intenta de nuevo o escríbenos directamente.';
+        messageDiv.style.background = 'rgba(255,100,100,0.2)';
+        messageDiv.style.color = '#ff9999';
+        messageDiv.style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>
