@@ -1,409 +1,832 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Precios | Tu Agencia Marketing – Webs rápidas y baratas con IA</title>
-  <meta name="description" content="Precios claros y asequibles para pymes y autónomos en España. Webs profesionales en pocos días."/>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ceppelli Studio — Websites for Small & Medium Business</title>
+<meta name="description" content="Professional websites for small and medium businesses. Fast, modern, GitHub hosted, Cloudflare protected. Starting from €200.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#F8F5F0;--cream-d:#EDE9E1;--ink:#18160F;--ink-m:#514D45;--ink-f:#A09890;
+  --gold:#B8935A;--gold-l:#D4B483;--white:#fff;--bd:#DDD8CF;
+  --max:1160px;--r:3px;
+  --ff-head:'Cormorant Garamond',Georgia,serif;
+  --ff-body:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--ff-body);font-size:15px;line-height:1.65;font-weight:300;overflow-x:hidden}
 
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #000;
-      color: #e0e0e0;
-      line-height: 1.6;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    #matrix-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.7;
-    }
-    header {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 6rem 1rem 4rem;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
-    }
-    .logo-container {
-      margin-bottom: 1.5rem;
-    }
-    .logo {
-      max-width: 280px;
-      height: auto;
-      filter: drop-shadow(0 0 15px rgba(0,255,157,0.6));
-      transition: transform 0.4s ease;
-    }
-    .logo:hover {
-      transform: scale(1.05);
-    }
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 9vw, 5.5rem);
-      margin-bottom: 1rem;
-      color: #00ff9d;
-      text-shadow: 0 0 20px rgba(0,255,157,0.6);
-    }
-    header p {
-      font-size: 1.35rem;
-      max-width: 800px;
-      margin: 0 auto;
-      color: #d1d5db;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-    section {
-      padding: 6rem 0;
-    }
-    h2 {
-      text-align: center;
-      font-size: 2.8rem;
-      margin-bottom: 3.5rem;
-      color: #00ff9d;
-      text-shadow: 0 0 15px rgba(0,255,157,0.4);
-    }
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2.5rem;
-    }
-    .card {
-      background: rgba(17, 24, 39, 0.85);
-      border: 1px solid rgba(0,255,157,0.15);
-      border-radius: 1rem;
-      overflow: hidden;
-      backdrop-filter: blur(8px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-align: center;
-    }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,255,157,0.2);
-    }
-    .card-header {
-      background: rgba(0,255,157,0.08);
-      padding: 2.2rem 1.5rem;
-      border-bottom: 1px solid rgba(0,255,157,0.15);
-    }
-    .card-header h3 {
-      font-size: 1.9rem;
-      margin-bottom: 0.6rem;
-      color: #00ff9d;
-    }
-    .price {
-      font-size: 3.5rem;
-      font-weight: 700;
-      color: #00ff9d;
-      margin: 1.5rem 0;
-    }
-    .price small {
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: #9ca3af;
-    }
-    .features {
-      padding: 2rem 1.5rem;
-      list-style: none;
-    }
-    .features li {
-      margin-bottom: 1.1rem;
-      font-size: 1.1rem;
-      color: #d1d5db;
-    }
-    .features li:before {
-      content: "✓ ";
-      color: #00ff9d;
-      font-weight: bold;
-      margin-right: 0.6rem;
-    }
-    .card-footer {
-      padding: 1.8rem;
-      border-top: 1px solid rgba(0,255,157,0.15);
-    }
-    .btn {
-      display: inline-block;
-      background: #00ff9d;
-      color: #000;
-      padding: 1.1rem 2.5rem;
-      border-radius: 0.6rem;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: none;
-    }
-    .btn:hover {
-      background: #00e088;
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(0,255,157,0.3);
-    }
-    footer {
-      background: rgba(0,0,0,0.9);
-      color: #9ca3af;
-      text-align: center;
-      padding: 4rem 1rem;
-      margin-top: 5rem;
-      border-top: 1px solid rgba(0,255,157,0.1);
-    }
+/* ── NAV ─────────────────────────────── */
+nav{position:fixed;inset:0 0 auto;height:60px;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(248,245,240,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);transition:box-shadow .3s}
+nav.up{box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.logo{font-family:var(--ff-head);font-size:1.45rem;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:.01em}
+.logo em{font-style:normal;color:var(--gold)}
+.nav-links{display:flex;gap:2.2rem;list-style:none;align-items:center}
+.nav-links a{font-size:.72rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-m);text-decoration:none;transition:color .18s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{background:var(--ink)!important;color:var(--cream)!important;padding:.45rem 1.1rem;border-radius:var(--r)}
+.nav-cta:hover{background:var(--gold)!important;color:var(--white)!important}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.burger span{display:block;width:22px;height:1.5px;background:var(--ink);transition:.3s}
 
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.75);
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-content {
-      background: rgba(17, 24, 39, 0.95);
-      border: 1px solid rgba(0,255,157,0.2);
-      border-radius: 12px;
-      padding: 2.5rem;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-      backdrop-filter: blur(10px);
-    }
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 20px;
-      color: #00ff9d;
-      font-size: 2rem;
-      cursor: pointer;
-    }
-    .close:hover { color: #fff; }
-    #form-message {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      border-radius: 8px;
-      display: none;
-    }
-    #form-message.success {
-      background: rgba(0,255,157,0.15);
-      color: #00ff9d;
-      display: block;
-    }
-    @media (max-width: 768px) {
-      header { padding: 5rem 1rem 3rem; }
-      .logo { max-width: 220px; }
-      h2 { font-size: 2.2rem; }
-      .price { font-size: 3rem; }
-      .modal-content { padding: 2rem; }
-    }
-  </style>
+/* ── HERO ────────────────────────────── */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:var(--max);margin:0 auto;padding:100px 3rem 60px}
+.hero-text .eyebrow{font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:500;display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem}
+.hero-text .eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+.hero-text h1{font-family:var(--ff-head);font-size:clamp(3.2rem,5vw,4.8rem);font-weight:300;line-height:1.06;margin-bottom:1.4rem}
+.hero-text h1 em{font-style:italic;color:var(--gold)}
+.hero-text p{color:var(--ink-m);max-width:400px;margin-bottom:2.2rem;font-size:.95rem}
+.btns{display:flex;gap:.9rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.78rem 1.8rem;border-radius:var(--r);font-family:var(--ff-body);font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;font-weight:400;text-decoration:none;cursor:pointer;border:none;transition:all .2s}
+.btn-dark{background:var(--ink);color:var(--cream)}
+.btn-dark:hover{background:var(--gold);color:var(--white);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--ink);border:1px solid var(--bd)}
+.btn-outline:hover{border-color:var(--ink);transform:translateY(-1px)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:2.8rem;padding-top:2rem;border-top:1px solid var(--bd)}
+.stat span:first-child{display:block;font-family:var(--ff-head);font-size:2rem;font-weight:300;line-height:1}
+.stat span:last-child{font-size:.68rem;color:var(--ink-f);letter-spacing:.06em}
+
+/* Hero right: tiled portfolio collage */
+.hero-visual{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:12px}
+.hv-card{border-radius:8px;overflow:hidden;box-shadow:0 12px 36px rgba(0,0,0,.09);border:1px solid var(--bd);animation:floatUp .7s ease both}
+.hv-card:nth-child(1){animation-delay:.1s}
+.hv-card:nth-child(2){animation-delay:.2s;margin-top:24px}
+.hv-card:nth-child(3){animation-delay:.3s}
+.hv-card:nth-child(4){animation-delay:.4s;margin-top:-24px}
+@keyframes floatUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TRUST TICKER ────────────────────── */
+.ticker-wrap{background:var(--ink);overflow:hidden;padding:.7rem 0}
+.ticker{display:flex;animation:ticker 22s linear infinite;white-space:nowrap}
+.ticker-item{padding:0 2.4rem;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(248,245,240,.45);display:flex;align-items:center;gap:.7rem;flex-shrink:0}
+.ticker-item strong{color:rgba(248,245,240,.88);font-weight:400}
+.ticker-dot{width:3px;height:3px;border-radius:50%;background:var(--gold);flex-shrink:0}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTION BASICS ──────────────────── */
+.section{padding:6rem 3rem;max-width:var(--max);margin:0 auto}
+.section-w{padding:6rem 3rem;background:var(--white)}
+.section-w-inner{max-width:var(--max);margin:0 auto}
+.sh{margin-bottom:3.5rem}
+.sh .ey{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:500;display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem}
+.sh .ey::before{content:'';display:block;width:22px;height:1px;background:var(--gold)}
+.sh h2{font-family:var(--ff-head);font-size:clamp(2rem,3.5vw,3rem);font-weight:300;line-height:1.12}
+.sh h2 em{font-style:italic;color:var(--gold)}
+.sh p{color:var(--ink-m);margin-top:.7rem;max-width:460px;font-size:.88rem}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:none}
+
+/* ── PORTFOLIO ───────────────────────── */
+.port-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.pf{padding:.35rem 1rem;border:1px solid var(--bd);background:transparent;color:var(--ink-m);font-family:var(--ff-body);font-size:.65rem;letter-spacing:.13em;text-transform:uppercase;border-radius:var(--r);cursor:pointer;transition:.18s}
+.pf:hover,.pf.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.pc{background:var(--white);border:1px solid var(--bd);border-radius:8px;overflow:hidden;transition:transform .28s,box-shadow .28s;cursor:default}
+.pc:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.1)}
+
+/* browser chrome */
+.pc-bar{background:#ECEAE5;padding:7px 10px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--bd)}
+.pc-dots{display:flex;gap:4px}
+.pc-dots span{width:8px;height:8px;border-radius:50%}
+.d-r{background:#FF5F57}.d-y{background:#FEBC2E}.d-g{background:#28C840}
+.pc-url{flex:1;background:var(--white);border-radius:3px;height:18px;padding:0 8px;margin-left:5px;font-size:.54rem;color:var(--ink-f);display:flex;align-items:center}
+.pc-screen{height:168px;overflow:hidden}
+
+/* ─ Site 1: Trattoria (dark Italian restaurant) */
+.s1{background:#1A0E06;display:flex;flex-direction:column;height:100%}
+.s1-nav{height:32px;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:space-between;padding:0 14px;flex-shrink:0}
+.s1-brand{color:#C8A040;font-family:Georgia,serif;font-size:.75rem;letter-spacing:.12em}
+.s1-navr{display:flex;gap:12px}
+.s1-navr span{color:rgba(255,255,255,.45);font-size:.52rem;letter-spacing:.1em}
+.s1-hero{flex:1;background:linear-gradient(to bottom,rgba(20,10,0,.3) 0%,rgba(20,10,0,.75) 100%),linear-gradient(135deg,#3D2010 0%,#1A0E06 100%);padding:14px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.s1-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(180,100,20,.18),transparent 70%)}
+.s1-tag{color:#C8A040;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px}
+.s1-h{color:#F5EDD8;font-family:Georgia,serif;font-size:1.15rem;font-style:italic;line-height:1.2;margin-bottom:4px}
+.s1-sub{color:rgba(245,237,216,.5);font-size:.55rem;letter-spacing:.1em;margin-bottom:10px}
+.s1-btn{display:inline-block;border:1px solid #C8A040;color:#C8A040;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;padding:4px 10px;width:fit-content}
+.s1-bottom{background:#120A02;padding:8px 14px;display:flex;gap:16px;border-top:1px solid rgba(200,160,64,.2)}
+.s1-b-item{display:flex;flex-direction:column;gap:1px}
+.s1-b-item span:first-child{color:#C8A040;font-size:.52rem;letter-spacing:.1em}
+.s1-b-item span:last-child{color:rgba(255,255,255,.35);font-size:.48rem}
+
+/* ─ Site 2: Law firm (corporate navy) */
+.s2{background:#F4F2EE;display:flex;flex-direction:column;height:100%}
+.s2-nav{height:32px;background:#1B2D4F;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.s2-brand{color:#E8D48A;font-family:Georgia,serif;font-size:.72rem;letter-spacing:.08em}
+.s2-navr{display:flex;gap:10px}
+.s2-navr span{color:rgba(255,255,255,.5);font-size:.52rem}
+.s2-body{display:grid;grid-template-columns:1fr 1fr;flex:1;overflow:hidden}
+.s2-left{padding:14px;display:flex;flex-direction:column;justify-content:center;background:#F4F2EE}
+.s2-tag{color:#1B2D4F;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:5px}
+.s2-h{font-family:Georgia,serif;font-size:.95rem;color:#1B2D4F;line-height:1.25;margin-bottom:6px}
+.s2-p{font-size:.55rem;color:#777;line-height:1.5;margin-bottom:10px}
+.s2-cta{display:inline-block;background:#1B2D4F;color:#E8D48A;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;width:fit-content}
+.s2-right{background:#1B2D4F;padding:14px;display:flex;flex-direction:column;gap:8px}
+.s2-pill{background:rgba(255,255,255,.07);border-left:2px solid #E8D48A;padding:6px 8px}
+.s2-pill-h{color:#E8D48A;font-size:.55rem;margin-bottom:2px}
+.s2-pill-p{color:rgba(255,255,255,.4);font-size:.48rem}
+
+/* ─ Site 3: E-commerce fashion ceramics */
+.s3{background:#FAFAF8;display:flex;flex-direction:column;height:100%}
+.s3-nav{height:32px;background:#fff;border-bottom:1px solid #EEE;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.s3-brand{font-family:Georgia,serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#222}
+.s3-navr{display:flex;gap:10px;align-items:center}
+.s3-navr span{font-size:.5rem;color:#888;letter-spacing:.1em}
+.s3-navr .cart{width:14px;height:14px;border:1.5px solid #222;border-radius:2px;display:inline-block}
+.s3-hero{background:#F0EDE8;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-shrink:0}
+.s3-hero-txt{flex:1}
+.s3-sale{background:#C8553E;color:#fff;font-size:.46rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 6px;display:inline-block;margin-bottom:4px}
+.s3-h{font-family:Georgia,serif;font-size:.9rem;color:#222;margin-bottom:4px;line-height:1.2}
+.s3-price{color:#C8553E;font-size:.75rem;font-family:Georgia,serif;margin-bottom:6px}
+.s3-price s{color:#aaa;font-size:.6rem;margin-left:4px}
+.s3-shopbtn{background:#222;color:#fff;font-size:.48rem;letter-spacing:.12em;padding:4px 10px;text-transform:uppercase;display:inline-block}
+.s3-hero-img{width:56px;height:60px;background:linear-gradient(160deg,#E0D8CC,#C8BCA8);border-radius:2px;flex-shrink:0}
+.s3-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;flex:1;background:#EEE}
+.s3-prod{background:#fff;padding:8px;display:flex;flex-direction:column;gap:3px}
+.s3-pimg{height:36px;border-radius:2px;margin-bottom:4px}
+.s3-pname{font-size:.5rem;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s3-pprice{font-size:.55rem;color:#C8553E;font-family:Georgia,serif}
+
+/* ─ Site 4: Yoga / wellness */
+.s4{background:#EEE8DE;display:flex;flex-direction:column;height:100%}
+.s4-nav{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.s4-brand{color:#3D5944;font-family:Georgia,serif;font-size:.72rem;letter-spacing:.1em;font-style:italic}
+.s4-navr{display:flex;gap:10px}
+.s4-navr span{color:rgba(61,89,68,.5);font-size:.52rem;letter-spacing:.08em}
+.s4-body{flex:1;display:grid;grid-template-columns:1fr 80px;padding:10px 14px;gap:10px}
+.s4-left{display:flex;flex-direction:column;justify-content:center}
+.s4-tag{color:#3D5944;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-bottom:5px}
+.s4-h{font-family:Georgia,serif;font-size:.9rem;color:#2C3E30;font-style:italic;line-height:1.25;margin-bottom:5px}
+.s4-p{font-size:.52rem;color:rgba(44,62,48,.6);line-height:1.5;margin-bottom:8px}
+.s4-btn{display:inline-block;background:#3D5944;color:#EEE8DE;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;width:fit-content;border-radius:2px}
+.s4-right{display:flex;flex-direction:column;gap:6px}
+.s4-class{background:rgba(61,89,68,.1);border-radius:3px;padding:5px;border-left:2px solid #3D5944}
+.s4-class-t{font-size:.5rem;color:#2C3E30;font-weight:500;margin-bottom:1px}
+.s4-class-s{font-size:.46rem;color:rgba(44,62,48,.5)}
+.s4-strip{background:#3D5944;padding:6px 14px;display:flex;gap:16px;align-items:center}
+.s4-strip-i{color:rgba(238,232,222,.6);font-size:.48rem;letter-spacing:.08em}
+
+/* ─ Site 5: Architecture */
+.s5{background:#F6F4F0;display:flex;flex-direction:column;height:100%}
+.s5-nav{height:30px;background:#fff;border-bottom:1px solid #E8E5DF;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.s5-brand{font-family:Georgia,serif;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:#111}
+.s5-navr{display:flex;gap:10px}
+.s5-navr span{font-size:.5rem;color:#999;letter-spacing:.08em}
+.s5-body{flex:1;display:grid;grid-template-columns:1fr 1fr}
+.s5-left{padding:12px;display:flex;flex-direction:column;justify-content:space-between}
+.s5-tag{font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:#999;margin-bottom:6px}
+.s5-h{font-family:Georgia,serif;font-size:.88rem;color:#111;line-height:1.3;margin-bottom:6px}
+.s5-p{font-size:.52rem;color:#888;line-height:1.5;margin-bottom:8px}
+.s5-link{font-size:.5rem;color:#111;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:1px;display:inline-block}
+.s5-awards{display:flex;gap:8px}
+.s5-award{background:#111;color:#F6F4F0;font-size:.46rem;padding:3px 6px;letter-spacing:.1em}
+.s5-right{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px}
+.s5-img{overflow:hidden}
+.s5-i1{background:linear-gradient(135deg,#D8D2C6,#C0BAB0)}
+.s5-i2{background:linear-gradient(135deg,#B8B2A8,#A0988C)}
+.s5-i3{background:linear-gradient(135deg,#E0DBD3,#D0C8BE)}
+.s5-i4{background:linear-gradient(135deg,#C8C2B8,#B0A89C)}
+
+/* ─ Site 6: SaaS dark */
+.s6{background:#0C0E14;display:flex;flex-direction:column;height:100%}
+.s6-nav{height:32px;background:#0C0E14;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.s6-brand{color:#6366F1;font-size:.72rem;letter-spacing:.06em;font-weight:600}
+.s6-navr{display:flex;gap:10px;align-items:center}
+.s6-navr span{color:rgba(255,255,255,.35);font-size:.5rem}
+.s6-navr .s6-cta-nav{background:#6366F1;color:#fff;font-size:.48rem;padding:2px 8px;border-radius:2px}
+.s6-hero{padding:14px;text-align:center;flex-shrink:0}
+.s6-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);border-radius:20px;padding:3px 10px;margin-bottom:8px}
+.s6-badge span{color:#818CF8;font-size:.5rem;letter-spacing:.1em}
+.s6-h{color:#fff;font-family:Georgia,serif;font-size:.95rem;line-height:1.3;margin-bottom:4px}
+.s6-sub{color:rgba(255,255,255,.4);font-size:.52rem;margin-bottom:10px}
+.s6-btns{display:flex;gap:6px;justify-content:center;margin-bottom:10px}
+.s6-b1{background:#6366F1;color:#fff;font-size:.5rem;padding:4px 12px;border-radius:3px}
+.s6-b2{background:transparent;color:rgba(255,255,255,.5);font-size:.5rem;padding:4px 12px;border:1px solid rgba(255,255,255,.15);border-radius:3px}
+.s6-dash{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:0 4px}
+.s6-metric{background:rgba(255,255,255,.05);border-radius:3px;padding:6px;text-align:center}
+.s6-mval{color:#6366F1;font-size:.75rem;font-family:Georgia,serif;display:block;margin-bottom:1px}
+.s6-mlabel{color:rgba(255,255,255,.3);font-size:.46rem}
+
+/* portfolio info */
+.pc-info{padding:.85rem 1rem}
+.pc-tag{display:inline-block;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:rgba(184,147,90,.1);padding:.18rem .5rem;border-radius:2px;margin-bottom:.4rem;font-weight:500}
+.pc-title{font-family:var(--ff-head);font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:.15rem}
+.pc-desc{font-size:.75rem;color:var(--ink-f)}
+
+/* ── PROCESS ─────────────────────────── */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;counter-reset:step}
+.ps{counter-increment:step;position:relative}
+.ps::after{content:'';position:absolute;top:1.2rem;left:calc(2rem + 8px);right:-1rem;height:1px;background:var(--bd)}
+.ps:last-child::after{display:none}
+.ps-num{width:38px;height:38px;border:1px solid var(--bd);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;letter-spacing:.1em;color:var(--ink-f);margin-bottom:1.2rem;background:var(--white);position:relative;z-index:1}
+.ps-title{font-family:var(--ff-head);font-size:1.15rem;font-weight:400;margin-bottom:.4rem}
+.ps-desc{font-size:.8rem;color:var(--ink-m);line-height:1.6}
+
+/* ── PRICING ─────────────────────────── */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-bottom:2.5rem}
+.pg-card{background:var(--white);border:1px solid var(--bd);border-radius:8px;padding:2.2rem 1.8rem;position:relative;transition:transform .25s,box-shadow .25s}
+.pg-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,0,0,.08)}
+.pg-card.feat{background:var(--ink);border-color:var(--ink);color:var(--cream);transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,0,0,.15)}
+.pg-card.feat:hover{transform:translateY(-9px)}
+.pg-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .7rem;border-radius:20px}
+.pg-tier{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;font-weight:500}
+.feat .pg-tier{color:var(--gold-l)}
+.pg-price{font-family:var(--ff-head);font-size:3.4rem;font-weight:300;line-height:1;margin-bottom:.2rem}
+.pg-price sup{font-size:1.1rem;vertical-align:top;margin-top:.5rem;display:inline-block}
+.pg-setup{font-size:.72rem;color:var(--ink-f);margin-bottom:1.6rem}
+.feat .pg-setup{color:rgba(248,245,240,.4)}
+.pg-div{height:1px;background:var(--bd);margin-bottom:1.4rem}
+.feat .pg-div{background:rgba(248,245,240,.12)}
+.pg-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.8rem;font-size:.8rem}
+.pg-features li{display:flex;align-items:flex-start;gap:.6rem;color:var(--ink-m);line-height:1.4}
+.feat .pg-features li{color:rgba(248,245,240,.72)}
+.pg-features li::before{content:'✓';color:var(--gold);flex-shrink:0;font-size:.82rem}
+.pg-btn{display:block;width:100%;padding:.82rem;text-align:center;border-radius:var(--r);font-family:var(--ff-body);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.2s;font-weight:400}
+.pg-btn-ol{background:transparent;color:var(--ink);border:1px solid var(--bd)}
+.pg-btn-ol:hover{border-color:var(--ink)}
+.pg-btn-wh{background:var(--cream);color:var(--ink);border:none}
+.pg-btn-wh:hover{background:#fff}
+
+/* maintenance card */
+.maint{background:linear-gradient(120deg,var(--cream-d),var(--cream));border:1px solid var(--bd);border-radius:8px;padding:2.2rem 2.8rem;display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap}
+.maint-ic{width:56px;height:56px;background:var(--ink);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.maint-txt{flex:1;min-width:200px}
+.maint-ey{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;font-weight:500}
+.maint-h{font-family:var(--ff-head);font-size:1.6rem;font-weight:300;margin-bottom:.35rem}
+.maint-p{font-size:.8rem;color:var(--ink-m);line-height:1.6;max-width:420px}
+.maint-r{text-align:center;flex-shrink:0}
+.maint-from{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-f)}
+.maint-price{font-family:var(--ff-head);font-size:2.8rem;font-weight:300;line-height:1}
+.maint-price sup{font-size:.9rem;vertical-align:top;margin-top:.45rem;display:inline-block}
+.maint-mo{font-size:.72rem;color:var(--ink-f);margin-bottom:.9rem}
+
+/* ── CONTACT + PAYMENT ───────────────── */
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+label{display:flex;flex-direction:column;gap:.35rem;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-m)}
+input,select,textarea{background:var(--cream);border:1px solid var(--bd);border-radius:var(--r);padding:.7rem .9rem;font-family:var(--ff-body);font-size:.85rem;color:var(--ink);width:100%;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--ink)}
+textarea{min-height:110px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-stack{display:flex;flex-direction:column;gap:.9rem}
+.form-ok{display:none;background:rgba(184,147,90,.1);border:1px solid var(--gold);border-radius:var(--r);padding:1rem;text-align:center;font-size:.82rem;color:var(--ink)}
+.pay-sticky{position:sticky;top:80px}
+.pay-h{font-family:var(--ff-head);font-size:1.7rem;font-weight:300;margin-bottom:.35rem}
+.pay-sub{font-size:.82rem;color:var(--ink-m);margin-bottom:1.8rem;line-height:1.65}
+.plan-opts{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.8rem}
+.po{border:1px solid var(--bd);border-radius:6px;padding:.9rem 1.1rem;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.po:hover{border-color:var(--ink-m)}
+.po.sel{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.po-left{display:flex;align-items:center;gap:.7rem}
+.po-radio{width:15px;height:15px;border-radius:50%;border:2px solid var(--bd);flex-shrink:0;transition:.2s}
+.po.sel .po-radio{border-color:var(--gold);background:var(--gold)}
+.po-name{font-size:.8rem;font-weight:500}
+.po-desc{font-size:.68rem;color:var(--ink-f)}
+.po.sel .po-desc{color:rgba(248,245,240,.5)}
+.po-price{font-family:var(--ff-head);font-size:1.3rem;font-weight:300;white-space:nowrap;flex-shrink:0}
+.stripe-btn{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;padding:.95rem;background:#5469D4;color:#fff;border:none;border-radius:var(--r);font-family:var(--ff-body);font-size:.78rem;letter-spacing:.08em;cursor:pointer;transition:.2s}
+.stripe-btn:hover{background:#4357BF;transform:translateY(-1px)}
+.stripe-note{display:flex;align-items:center;justify-content:center;gap:.4rem;margin-top:.7rem;font-size:.62rem;color:var(--ink-f)}
+
+/* ── FOOTER ──────────────────────────── */
+footer{background:var(--ink);color:var(--cream);padding:4rem 3rem 2rem}
+.fi{max-width:var(--max);margin:0 auto}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.f-logo{font-family:var(--ff-head);font-size:1.4rem;font-weight:600;color:var(--cream);text-decoration:none;display:block;margin-bottom:.7rem}
+.f-logo em{font-style:normal;color:var(--gold)}
+.f-desc{font-size:.78rem;color:rgba(248,245,240,.4);line-height:1.7;margin-bottom:1.3rem;max-width:230px}
+.f-badges{display:flex;gap:.5rem;flex-wrap:wrap}
+.f-badge{border:1px solid rgba(255,255,255,.15);padding:.22rem .6rem;border-radius:2px;font-size:.58rem;letter-spacing:.1em;color:rgba(248,245,240,.4)}
+.f-col-h{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(248,245,240,.35);margin-bottom:.9rem}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.f-links a{font-size:.78rem;color:rgba(248,245,240,.55);text-decoration:none;transition:color .18s}
+.f-links a:hover{color:var(--cream)}
+.fb{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-top:1.8rem}
+.f-copy{font-size:.68rem;color:rgba(248,245,240,.3)}
+.f-legal{display:flex;gap:1.5rem}
+.f-legal a{font-size:.68rem;color:rgba(248,245,240,.3);text-decoration:none;transition:color .18s}
+.f-legal a:hover{color:rgba(248,245,240,.6)}
+
+/* ── MODAL ───────────────────────────── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(24,22,15,.55);backdrop-filter:blur(5px);z-index:500;align-items:center;justify-content:center;padding:1rem}
+.modal-bg.open{display:flex}
+.modal{background:var(--white);border-radius:10px;padding:2.2rem;max-width:420px;width:100%;position:relative;animation:floatUp .3s ease}
+.mc{position:absolute;top:.9rem;right:.9rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--ink-f);line-height:1}
+.modal h3{font-family:var(--ff-head);font-size:1.6rem;font-weight:300;margin-bottom:.35rem}
+.modal p{font-size:.82rem;color:var(--ink-m);margin-bottom:1.3rem;line-height:1.65}
+code{background:var(--cream-d);padding:2px 6px;border-radius:2px;font-size:.78rem}
+.modal-step{background:var(--cream-d);border-radius:4px;padding:.9rem;font-size:.75rem;color:var(--ink-m);line-height:1.8;margin-bottom:1.3rem}
+.modal-step strong{color:var(--ink)}
+
+/* ── RESPONSIVE ──────────────────────── */
+@media(max-width:1024px){
+  #hero{grid-template-columns:1fr;padding-top:90px}
+  .hero-visual{display:none}
+  .port-grid{grid-template-columns:1fr 1fr}
+  .price-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+  .pg-card.feat{transform:none}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .ps::after{display:none}
+  .ft{grid-template-columns:1fr 1fr;gap:2rem}
+  .cg{grid-template-columns:1fr;gap:3rem}
+  .pay-sticky{position:static}
+}
+@media(max-width:680px){
+  nav{padding:0 1.5rem}
+  .section,.section-w{padding:4rem 1.5rem}
+  #hero{padding:90px 1.5rem 50px}
+  .port-grid{grid-template-columns:1fr}
+  .process-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:rgba(248,245,240,.97);padding:2rem;border-bottom:1px solid var(--bd);gap:1.5rem;backdrop-filter:blur(14px)}
+  .burger{display:flex}
+  .maint{flex-direction:column;text-align:center}
+  .form-row{grid-template-columns:1fr}
+  .ft{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem;flex-wrap:wrap}
+}
+</style>
 </head>
 <body>
 
-  <canvas id="matrix-canvas"></canvas>
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">Ceppelli<em>.</em>Studio</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-  <header>
-    <div class="logo-container">
-      <img src="Futuristic Marketing Agency Logo 2.jpg" alt="Tu Agencia Marketing Logo" class="logo">
+<!-- HERO -->
+<section>
+<div id="hero">
+  <div class="hero-text rv">
+    <div class="eyebrow">Web Design Studio · Italy</div>
+    <h1>Websites that<br><em>work hard</em><br>for your business.</h1>
+    <p>We design and build fast, beautiful websites for small and medium businesses — hosted on GitHub, protected by Cloudflare, delivered in days.</p>
+    <div class="btns">
+      <a href="#pricing" class="btn btn-dark">View Packages</a>
+      <a href="#portfolio" class="btn btn-outline">See Our Work</a>
     </div>
-    <h1>Tu Agencia Marketing</h1>
-    <p>Webs profesionales, rápidas y asequibles para autónomos y pymes en España – creadas con IA para ahorrarte tiempo y dinero.</p>
-  </header>
+    <div class="hero-stats">
+      <div class="stat"><span>€200</span><span>Starting price</span></div>
+      <div class="stat"><span>48h</span><span>Avg. delivery</span></div>
+      <div class="stat"><span>100%</span><span>Mobile first</span></div>
+    </div>
+  </div>
 
-  <div class="container">
-
-    <section>
-      <h2>Nuestros Paquetes de Creación Web</h2>
-      <div class="pricing-grid">
-        
-        <div class="card">
-          <div class="card-header"><h3>Básico</h3></div>
-          <div class="price">200 €</div>
-          <ul class="features">
-            <li>Web de 1–5 páginas (estática o simple)</li>
-            <li>Diseño responsive y móvil primero</li>
-            <li>Formulario de contacto</li>
-            <li>Hosting Cloudflare + SSL gratis</li>
-            <li>Optimización de velocidad</li>
-          </ul>
-          <div class="card-footer">
-            <button class="btn open-modal">Pedir presupuesto</button>
-          </div>
+  <!-- 4 mini site previews in a staggered grid -->
+  <div class="hero-visual">
+    <div class="hv-card">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">trattoria-delbosco.it</div></div>
+      <div style="height:140px;overflow:hidden">
+        <div class="s1" style="height:140px">
+          <div class="s1-nav"><span class="s1-brand">Trattoria del Bosco</span><div class="s1-navr"><span>Menu</span><span>Prenota</span></div></div>
+          <div class="s1-hero" style="flex:1"><div class="s1-tag">Ristorante · Firenze · Dal 1987</div><div class="s1-h">Cucina toscana<br>di famiglia.</div><div class="s1-btn">Prenota un Tavolo</div></div>
         </div>
-
-        <div class="card">
-          <div class="card-header"><h3>Pro</h3></div>
-          <div class="price">400 €</div>
-          <ul class="features">
-            <li>Hasta 10 páginas</li>
-            <li>Animaciones básicas + galería</li>
-            <li>Sección blog / noticias</li>
-            <li>Google Analytics + SEO básico</li>
-            <li>Dominio + Cloudflare completo</li>
-          </ul>
-          <div class="card-footer">
-            <button class="btn open-modal">Pedir presupuesto</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header"><h3>Premium</h3></div>
-          <div class="price">1000 €</div>
-          <ul class="features">
-            <li>Todo lo Pro + APIs personalizadas</li>
-            <li>Calendario reservas / pagos Stripe</li>
-            <li>Newsletter integración</li>
-            <li>Backend ligero (Supabase/Firebase)</li>
-            <li>Preparado para e-commerce básico</li>
-          </ul>
-          <div class="card-footer">
-            <button class="btn open-modal">Pedir presupuesto</button>
-          </div>
-        </div>
-
       </div>
-    </section>
-
-    <!-- Modal de formulario -->
-    <div id="contactModal" class="modal">
-      <div class="modal-content">
-        <span class="close">×</span>
-        <h2 style="color:#00ff9d; margin-bottom:1.5rem; text-align:center;">Solicita tu presupuesto</h2>
-        
-        <form id="contactForm" action="https://formspree.io/f/your-form-id-here" method="POST">
-          <input type="hidden" name="_subject" value="Nuevo presupuesto solicitado - Tu Agencia Marketing" />
-          
-          <label for="name" style="display:block; margin-bottom:0.5rem; color:#d1d5db;">Nombre</label>
-          <input type="text" id="name" name="name" required placeholder="Tu nombre" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:6px; border:1px solid #444; background:#111; color:#fff;" />
-
-          <label for="email" style="display:block; margin-bottom:0.5rem; color:#d1d5db;">Email</label>
-          <input type="email" id="email" name="email" required placeholder="tu@email.com" style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:6px; border:1px solid #444; background:#111; color:#fff;" />
-
-          <label for="package" style="display:block; margin-bottom:0.5rem; color:#d1d5db;">Paquete de interés</label>
-          <select id="package" name="package" required style="width:100%; padding:0.8rem; margin-bottom:1rem; border-radius:6px; border:1px solid #444; background:#111; color:#fff;">
-            <option value="">Selecciona uno</option>
-            <option value="Básico">Básico (200 €)</option>
-            <option value="Pro">Pro (400 €)</option>
-            <option value="Premium">Premium (1000 €)</option>
-            <option value="Mantenimiento">Solo mantenimiento</option>
-            <option value="Otro">Otro / consulta personalizada</option>
-          </select>
-
-          <label for="message" style="display:block; margin-bottom:0.5rem; color:#d1d5db;">Comentarios / Detalles del proyecto</label>
-          <textarea id="message" name="message" rows="4" placeholder="Cuéntame un poco sobre tu proyecto o necesidades..." style="width:100%; padding:0.8rem; margin-bottom:1.5rem; border-radius:6px; border:1px solid #444; background:#111; color:#fff; resize:vertical;"></textarea>
-
-          <button type="submit" class="btn" style="width:100%;">Enviar solicitud</button>
-        </form>
-
-        <div id="form-message" class="success"></div>
+    </div>
+    <div class="hv-card">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">pineneedle-realty.com</div></div>
+      <div style="height:140px;overflow:hidden">
+        <div class="s6" style="height:140px">
+          <div class="s6-nav"><span class="s6-brand" style="color:#E8A838">Pine Needle Realty</span><div class="s6-navr"><span>Listings</span><span class="s6-cta-nav" style="background:#E8A838">Contact us</span></div></div>
+          <div class="s6-hero" style="padding:10px 14px"><div class="s6-badge" style="background:rgba(232,168,56,.15);border-color:rgba(232,168,56,.3)"><span style="color:#E8A838">✦ Portland, Oregon</span></div><div class="s6-h" style="font-size:.82rem">Find your home<br>in the Pacific NW.</div><div class="s6-btns"><span class="s6-b1" style="background:#E8A838">View listings</span><span class="s6-b2">Free valuation</span></div><div class="s6-dash"><div class="s6-metric"><span class="s6-mval" style="color:#E8A838">340+</span><span class="s6-mlabel">Listings</span></div><div class="s6-metric"><span class="s6-mval" style="color:#E8A838">12yr</span><span class="s6-mlabel">Experience</span></div><div class="s6-metric"><span class="s6-mval" style="color:#E8A838">5★</span><span class="s6-mlabel">Rated</span></div></div></div>
+        </div>
       </div>
+    </div>
+    <div class="hv-card">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">velasquez-estudio.es</div></div>
+      <div style="height:140px;overflow:hidden">
+        <div class="s5" style="height:140px">
+          <div class="s5-nav"><span class="s5-brand">Velázquez Estudio</span><div class="s5-navr"><span>Proyectos</span><span>Contacto</span></div></div>
+          <div class="s5-body"><div class="s5-left"><div><div class="s5-tag">Arquitectura · Barcelona</div><div class="s5-h" style="font-size:.78rem">Diseño que<br>transforma espacios.</div><div class="s5-link">Ver proyectos →</div></div><div class="s5-awards"><span class="s5-award">FAD 2024</span></div></div><div class="s5-right"><div class="s5-img s5-i1"></div><div class="s5-img s5-i2"></div><div class="s5-img s5-i3"></div><div class="s5-img s5-i4"></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hv-card">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">anahata-wellness.in</div></div>
+      <div style="height:140px;overflow:hidden">
+        <div class="s4" style="height:140px">
+          <div class="s4-nav"><span class="s4-brand">Anahata Wellness</span><div class="s4-navr"><span>Classes</span><span>Book</span></div></div>
+          <div class="s4-body"><div class="s4-left"><div class="s4-tag">Yoga & Ayurveda · Mumbai</div><div class="s4-h" style="font-size:.82rem">Ancient wisdom,<br>modern living.</div><div class="s4-btn">Book a Session</div></div><div class="s4-right"><div class="s4-class"><div class="s4-class-t">Hatha Yoga</div><div class="s4-class-s">Mon 07:00 · 8 spots</div></div><div class="s4-class"><div class="s4-class-t">Ayurveda Consult</div><div class="s4-class-s">Wed 10:00 · Available</div></div></div></div>
+          <div class="s4-strip"><span class="s4-strip-i">Bandra West, Mumbai · +91 98200 12345</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- TRUST TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>GitHub Pages Hosting</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Cloudflare DDoS Protection</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Free SSL Certificate</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Mobile First Design</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Google Analytics</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>On-page SEO</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Stripe Payments</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Fast Delivery</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>GitHub Pages Hosting</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Cloudflare DDoS Protection</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Free SSL Certificate</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Mobile First Design</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Google Analytics</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>On-page SEO</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Stripe Payments</strong></div>
+    <div class="ticker-item"><div class="ticker-dot"></div><strong>Fast Delivery</strong></div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<div id="portfolio">
+<div class="section">
+  <div class="sh rv">
+    <div class="ey">Our Work</div>
+    <h2>Sites we've <em>crafted</em></h2>
+    <p>Six real-world projects — from restaurants to SaaS. Every site is fast, mobile-ready, and designed to convert visitors into clients.</p>
+  </div>
+  <div class="port-filters rv">
+    <button class="pf on" data-f="all">All</button>
+    <button class="pf" data-f="basic">Basic</button>
+    <button class="pf" data-f="medium">Medium</button>
+    <button class="pf" data-f="advanced">Advanced</button>
+  </div>
+  <div class="port-grid">
+
+    <!-- 1 -->
+    <div class="pc rv" data-tier="medium">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">trattoria-delbosco.it</div></div>
+      <div class="pc-screen">
+        <div class="s1">
+          <div class="s1-nav"><span class="s1-brand">Trattoria del Bosco</span><div class="s1-navr"><span>Menu</span><span>Vini</span><span>Prenotazioni</span></div></div>
+          <div class="s1-hero"><div class="s1-tag">Ristorante · Firenze · Dal 1987</div><div class="s1-h">Cucina toscana,<br>tradizione di famiglia.</div><div class="s1-sub">Aperto tutti i giorni · 12:00 – 23:00</div><div class="s1-btn">Prenota un Tavolo</div></div>
+          <div class="s1-bottom"><div class="s1-b-item"><span>📍</span><span>Via del Bosco 14, FI</span></div><div class="s1-b-item"><span>🕐</span><span>12:00 – 23:00</span></div><div class="s1-b-item"><span>☎</span><span>055 123 4567</span></div></div>
+        </div>
+      </div>
+      <div class="pc-info"><span class="pc-tag">Medium</span><div class="pc-title">Trattoria del Bosco</div><div class="pc-desc">🇮🇹 Italy — restaurant, menu, booking form, Google Maps</div></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="pc rv" data-tier="basic">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">garriga-abogados.es</div></div>
+      <div class="pc-screen">
+        <div class="s2">
+          <div class="s2-nav"><span class="s2-brand">Garriga & Asociados · Abogados</span><div class="s2-navr"><span>Áreas</span><span>Equipo</span><span>Contacto</span></div></div>
+          <div class="s2-body">
+            <div class="s2-left"><div class="s2-tag">Despacho Jurídico · Madrid</div><div class="s2-h">Experiencia y<br>discreción a su<br>servicio.</div><div class="s2-p">Más de 25 años asesorando a empresas y particulares en derecho civil, mercantil y laboral.</div><div class="s2-cta">Consulta gratuita →</div></div>
+            <div class="s2-right"><div class="s2-pill"><div class="s2-pill-h">Derecho Civil</div><div class="s2-pill-p">Contratos, herencias, familia</div></div><div class="s2-pill"><div class="s2-pill-h">Derecho Mercantil</div><div class="s2-pill-p">Sociedades, marcas, M&A</div></div><div class="s2-pill"><div class="s2-pill-h">Derecho Laboral</div><div class="s2-pill-p">Despidos, ERTEs, convenios</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-info"><span class="pc-tag">Basic</span><div class="pc-title">Garriga & Asociados</div><div class="pc-desc">🇪🇸 Spain — law firm, 4 pages, contact form, mobile responsive</div></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="pc rv" data-tier="advanced">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">bluerooftextiles.com</div></div>
+      <div class="pc-screen">
+        <div class="s3">
+          <div class="s3-nav"><span class="s3-brand">Blue Roof Textiles</span><div class="s3-navr"><span>Collections</span><span>About</span><div class="cart"></div></div></div>
+          <div class="s3-hero"><div class="s3-hero-txt"><div class="s3-sale">Summer Sale</div><div class="s3-h">Handwoven textiles<br>from New Mexico.</div><div class="s3-price">From $42 <s>$68</s></div><div class="s3-shopbtn">Shop now →</div></div><div class="s3-hero-img" style="background:linear-gradient(160deg,#D4C4A8,#BC A888)"></div></div>
+          <div class="s3-grid"><div class="s3-prod"><div class="s3-pimg" style="background:linear-gradient(135deg,#C8B89C,#B4A484)"></div><div class="s3-pname">Navajo Throw</div><div class="s3-pprice">$68</div></div><div class="s3-prod"><div class="s3-pimg" style="background:linear-gradient(135deg,#A8B8C0,#90A4AE)"></div><div class="s3-pname">Mesa Pillow</div><div class="s3-pprice">$42</div></div><div class="s3-prod"><div class="s3-pimg" style="background:linear-gradient(135deg,#C4B0A0,#B09A8C)"></div><div class="s3-pname">Canyon Runner</div><div class="s3-pprice">$95</div></div></div>
+        </div>
+      </div>
+      <div class="pc-info"><span class="pc-tag">Advanced</span><div class="pc-title">Blue Roof Textiles</div><div class="pc-desc">🇺🇸 USA — e-commerce, Stripe checkout, product catalogue, newsletter</div></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="pc rv" data-tier="medium">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">anahata-wellness.in</div></div>
+      <div class="pc-screen">
+        <div class="s4">
+          <div class="s4-nav"><span class="s4-brand">Anahata Wellness</span><div class="s4-navr"><span>Classes</span><span>Prices</span><span>Book</span></div></div>
+          <div class="s4-body">
+            <div class="s4-left"><div class="s4-tag">Yoga & Ayurveda · Mumbai</div><div class="s4-h">Ancient wisdom,<br>modern living.</div><div class="s4-p">Hatha, Vinyasa & Ayurvedic consultations. Certified instructors, small groups.</div><div class="s4-btn">Book a Session</div></div>
+            <div class="s4-right"><div class="s4-class"><div class="s4-class-t">Hatha Yoga</div><div class="s4-class-s">Mon 07:00 · 8 spots left</div></div><div class="s4-class"><div class="s4-class-t">Ayurveda Consult</div><div class="s4-class-s">Wed 10:00 · Available</div></div><div class="s4-class"><div class="s4-class-t">Pranayama</div><div class="s4-class-s">Fri 06:30 · 4 spots left</div></div></div>
+          </div>
+          <div class="s4-strip"><span class="s4-strip-i">🌿 Bandra West, Mumbai · +91 98200 12345</span></div>
+        </div>
+      </div>
+      <div class="pc-info"><span class="pc-tag">Medium</span><div class="pc-title">Anahata Wellness</div><div class="pc-desc">🇮🇳 India — booking calendar, class schedule, Analytics</div></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="pc rv" data-tier="basic">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">tanaka-architects.jp</div></div>
+      <div class="pc-screen">
+        <div class="s5">
+          <div class="s5-nav"><span class="s5-brand">Tanaka Architects</span><div class="s5-navr"><span>Projects</span><span>Studio</span><span>Contact</span></div></div>
+          <div class="s5-body">
+            <div class="s5-left"><div><div class="s5-tag">Architecture · Tokyo</div><div class="s5-h">Where silence<br>meets structure.</div><div class="s5-p">Residential, commercial and public spaces guided by ma — the art of meaningful emptiness.</div><div class="s5-link">View projects →</div></div><div class="s5-awards"><span class="s5-award">JIA 2024</span><span class="s5-award">AR Award</span></div></div>
+            <div class="s5-right"><div class="s5-img s5-i1"></div><div class="s5-img s5-i2"></div><div class="s5-img s5-i3"></div><div class="s5-img s5-i4"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-info"><span class="pc-tag">Basic</span><div class="pc-title">Tanaka Architects</div><div class="pc-desc">🇯🇵 Japan — architecture portfolio, 5 pages, contact form</div></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="pc rv" data-tier="advanced">
+      <div class="pc-bar"><div class="pc-dots"><span class="d-r"></span><span class="d-y"></span><span class="d-g"></span></div><div class="pc-url">contaflow.com.br</div></div>
+      <div class="pc-screen">
+        <div class="s6">
+          <div class="s6-nav"><span class="s6-brand">ContaFlow</span><div class="s6-navr"><span>Recursos</span><span>Preços</span><span>Docs</span><span class="s6-cta-nav">Comece grátis</span></div></div>
+          <div class="s6-hero"><div class="s6-badge"><span>✦ Novo — integração Pix</span></div><div class="s6-h">Finanças da sua<br>empresa, no controle.</div><div class="s6-sub">Emissão de NF · Conciliação bancária · Relatórios</div><div class="s6-btns"><span class="s6-b1">Teste grátis 14 dias</span><span class="s6-b2">Ver demo →</span></div><div class="s6-dash"><div class="s6-metric"><span class="s6-mval">3.8k</span><span class="s6-mlabel">Empresas</span></div><div class="s6-metric"><span class="s6-mval">99.8%</span><span class="s6-mlabel">Uptime</span></div><div class="s6-metric"><span class="s6-mval">R$49</span><span class="s6-mlabel">/mês</span></div></div></div>
+        </div>
+      </div>
+      <div class="pc-info"><span class="pc-tag">Advanced</span><div class="pc-title">ContaFlow</div><div class="pc-desc">🇧🇷 Brazil — SaaS landing page, Stripe billing, newsletter, API</div></div>
     </div>
 
   </div>
+</div>
+</div>
 
-  <footer>
-    <p>Precios sin IVA (21 %). Pagos seguros vía Stripe o transferencia.<br>
-    Entrega rápida gracias a herramientas IA – webs listas en días, no meses.<br>
-    © 2026 Tu Agencia Marketing</p>
-  </footer>
+<!-- HOW IT WORKS -->
+<div class="section-w" id="services">
+<div class="section-w-inner">
+  <div class="sh rv">
+    <div class="ey">How It Works</div>
+    <h2>Simple, <em>transparent</em> process</h2>
+    <p>From first message to live website — we make it fast, clear, and stress-free.</p>
+  </div>
+  <div class="process-grid">
+    <div class="ps rv"><div class="ps-num">01</div><div class="ps-title">Discovery Call</div><div class="ps-desc">Tell us about your business, goals, and audience. We'll suggest the right plan and ask the questions that matter.</div></div>
+    <div class="ps rv"><div class="ps-num">02</div><div class="ps-title">Design & Build</div><div class="ps-desc">We design and code your site — mobile-first, Cloudflare-ready, optimised for speed and search from day one.</div></div>
+    <div class="ps rv"><div class="ps-num">03</div><div class="ps-title">Review & Refine</div><div class="ps-desc">You review a staging link, request changes, and we refine until every detail is exactly right.</div></div>
+    <div class="ps rv"><div class="ps-num">04</div><div class="ps-title">Go Live</div><div class="ps-desc">We deploy to GitHub Pages, configure Cloudflare for your domain, and hand you full ownership of the code.</div></div>
+  </div>
+</div>
+</div>
 
-  <script>
-    // Matrix rain
-    const canvas = document.getElementById('matrix-canvas');
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      function resizeCanvas() {
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-      }
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
+<!-- PRICING -->
+<div id="pricing">
+<div class="section">
+  <div class="sh rv">
+    <div class="ey">Pricing</div>
+    <h2>Honest, <em>flat-fee</em> pricing</h2>
+    <p>Pay once for setup. Own your site forever. No monthly platform fees, no surprises.</p>
+  </div>
+  <div class="price-grid rv">
+    <div class="pg-card">
+      <div class="pg-tier">Basic</div>
+      <div class="pg-price"><sup>€</sup>200</div>
+      <div class="pg-setup">One-time setup fee</div>
+      <div class="pg-div"></div>
+      <ul class="pg-features">
+        <li>1 to 5 static HTML pages</li>
+        <li>Contact form with email delivery</li>
+        <li>Fully responsive &amp; mobile optimised</li>
+        <li>GitHub Pages hosting</li>
+        <li>Cloudflare security stack</li>
+        <li>Free SSL certificate</li>
+        <li>14-day revision window</li>
+      </ul>
+      <button class="pg-btn pg-btn-ol" onclick="selectPlan('basic')">Get Started</button>
+    </div>
+    <div class="pg-card feat">
+      <div class="pg-badge">Most Popular</div>
+      <div class="pg-tier">Medium</div>
+      <div class="pg-price"><sup>€</sup>400</div>
+      <div class="pg-setup">One-time setup fee</div>
+      <div class="pg-div"></div>
+      <ul class="pg-features">
+        <li>Everything in Basic</li>
+        <li>Up to 10 pages</li>
+        <li>Google Analytics integration</li>
+        <li>SEO setup (meta, sitemap, robots.txt)</li>
+        <li>Custom domain configuration</li>
+        <li>Blog-ready page structure</li>
+        <li>Performance optimisation</li>
+        <li>21-day revision window</li>
+      </ul>
+      <button class="pg-btn pg-btn-wh" onclick="selectPlan('medium')">Get Started</button>
+    </div>
+    <div class="pg-card">
+      <div class="pg-tier">Advanced</div>
+      <div class="pg-price"><sup>€</sup>1000</div>
+      <div class="pg-setup">One-time setup fee</div>
+      <div class="pg-div"></div>
+      <ul class="pg-features">
+        <li>Everything in Medium</li>
+        <li>Calendar booking API</li>
+        <li>Stripe payment integration</li>
+        <li>Newsletter (Mailchimp or Brevo)</li>
+        <li>E-commerce product catalogue</li>
+        <li>Custom API integrations</li>
+        <li>Advanced SEO + schema markup</li>
+        <li>Priority 30-day revision window</li>
+      </ul>
+      <button class="pg-btn pg-btn-ol" onclick="selectPlan('advanced')">Get Started</button>
+    </div>
+  </div>
 
-      const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()-_=+{}[]|;:,.<>?/".split("");
-      const fontSize = 16;
-      const columns = canvas.width / fontSize;
-      const drops = Array(Math.floor(columns)).fill(1);
+  <div class="maint rv">
+    <div class="maint-ic">🛠️</div>
+    <div class="maint-txt">
+      <div class="maint-ey">Standalone Service</div>
+      <div class="maint-h">Website Maintenance</div>
+      <div class="maint-p">Keep your site healthy, secure, and current. Content updates, security patches, uptime monitoring, monthly reports. Available for any website — not just sites we built.</div>
+    </div>
+    <div class="maint-r">
+      <div class="maint-from">Starting from</div>
+      <div class="maint-price"><sup>€</sup>50</div>
+      <div class="maint-mo">per month</div>
+      <button class="btn btn-dark" onclick="selectPlan('maintenance')">Get Maintenance</button>
+    </div>
+  </div>
+</div>
+</div>
 
-      function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#0f0';
-        ctx.font = fontSize + 'px monospace';
-        for (let i = 0; i < drops.length; i++) {
-          const text = matrix[Math.floor(Math.random() * matrix.length)];
-          const x = i * fontSize;
-          const y = drops[i] * fontSize;
-          ctx.fillText(text, x, y);
-          if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
-          drops[i]++;
-        }
-      }
-      setInterval(draw, 40);
-    }
+<!-- CONTACT + PAYMENT -->
+<div class="section-w" id="contact">
+<div class="section-w-inner">
+  <div class="sh rv">
+    <div class="ey">Get In Touch</div>
+    <h2>Let's build your <em>next website</em></h2>
+  </div>
+  <div class="cg">
+    <div>
+      <form class="form-stack" id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <input type="hidden" name="_subject" value="New enquiry — Ceppelli Studio">
+        <input type="hidden" name="_to" value="emanuele.ceppelli@gmail.com">
+        <div class="form-row">
+          <label>First Name<input type="text" name="first_name" placeholder="Marco" required></label>
+          <label>Last Name<input type="text" name="last_name" placeholder="Rossi" required></label>
+        </div>
+        <label>Email Address<input type="email" name="email" placeholder="marco@tuaazienda.it" required></label>
+        <label>Company / Business<input type="text" name="company" placeholder="e.g. Trattoria del Bosco"></label>
+        <label>Service you're interested in
+          <select name="service" id="contactService">
+            <option value="">Select a package…</option>
+            <option value="basic">Basic — €200</option>
+            <option value="medium">Medium — €400</option>
+            <option value="advanced">Advanced — €1,000</option>
+            <option value="maintenance">Maintenance — from €50/mo</option>
+            <option value="unsure">Not sure yet</option>
+          </select>
+        </label>
+        <label>Tell us about your project<textarea name="message" placeholder="Describe your business, what you need, any ideas or deadlines…"></textarea></label>
+        <button type="submit" class="btn btn-dark" id="formBtn">Send Message →</button>
+        <div class="form-ok" id="formOk">✓ Message sent! We'll be in touch within 24 hours.</div>
+        <p style="font-size:.68rem;color:var(--ink-f);margin-top:.3rem">Sent directly to emanuele.ceppelli@gmail.com · We reply within 24h.</p>
+      </form>
+    </div>
 
-    // Modal y formulario
-    const modal = document.getElementById('contactModal');
-    const closeBtn = document.querySelector('.close');
-    const form = document.getElementById('contactForm');
-    const messageDiv = document.getElementById('form-message');
-    const openButtons = document.querySelectorAll('.open-modal');
+    <div class="pay-sticky">
+      <div class="pay-h">Pay Online</div>
+      <div class="pay-sub">Select your plan and pay securely via Stripe. We kick off your project within 48 hours of payment.</div>
+      <div class="plan-opts" id="planOpts">
+        <div class="po" data-plan="basic" onclick="selectPayPlan('basic')"><div class="po-left"><div class="po-radio"></div><div><div class="po-name">Basic</div><div class="po-desc">1–5 pages · Contact form · GitHub + Cloudflare</div></div></div><div class="po-price">€200</div></div>
+        <div class="po" data-plan="medium" onclick="selectPayPlan('medium')"><div class="po-left"><div class="po-radio"></div><div><div class="po-name">Medium</div><div class="po-desc">Up to 10 pages · Analytics · SEO · Domain</div></div></div><div class="po-price">€400</div></div>
+        <div class="po" data-plan="advanced" onclick="selectPayPlan('advanced')"><div class="po-left"><div class="po-radio"></div><div><div class="po-name">Advanced</div><div class="po-desc">APIs · E-commerce · Stripe · Newsletter</div></div></div><div class="po-price">€1000</div></div>
+        <div class="po" data-plan="maintenance" onclick="selectPayPlan('maintenance')"><div class="po-left"><div class="po-radio"></div><div><div class="po-name">Maintenance</div><div class="po-desc">Monthly updates · security · monitoring</div></div></div><div class="po-price">€50<small style="font-size:.65rem">/mo</small></div></div>
+      </div>
+      <button class="stripe-btn" onclick="handlePay()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Pay securely with Stripe
+      </button>
+      <div class="stripe-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        256-bit SSL · Powered by Stripe · No card stored
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
-    openButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        modal.style.display = 'flex';
-        messageDiv.style.display = 'none';
-        form.reset();
-      });
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div class="ft">
+      <div>
+        <a href="#" class="f-logo">Ceppelli<em>.</em>Studio</a>
+        <div class="f-desc">Professional websites for small and medium businesses. Clean code, fast delivery, transparent pricing.</div>
+        <div class="f-badges"><span class="f-badge">GitHub Pages</span><span class="f-badge">Cloudflare</span><span class="f-badge">Stripe</span><span class="f-badge">Formspree</span></div>
+      </div>
+      <div><div class="f-col-h">Services</div><ul class="f-links"><li><a href="#pricing">Basic — €200</a></li><li><a href="#pricing">Medium — €400</a></li><li><a href="#pricing">Advanced — €1,000</a></li><li><a href="#pricing">Maintenance</a></li></ul></div>
+      <div><div class="f-col-h">Navigation</div><ul class="f-links"><li><a href="#portfolio">Portfolio</a></li><li><a href="#services">How It Works</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><div class="f-col-h">Contact</div><ul class="f-links"><li><a href="mailto:emanuele.ceppelli@gmail.com">emanuele.ceppelli@gmail.com</a></li><li><a href="#contact">Send a message</a></li></ul></div>
+    </div>
+    <div class="fb">
+      <div class="f-copy">© 2025 Ceppelli Studio. All rights reserved.</div>
+      <div class="f-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <button class="mc" onclick="closeModal()">×</button>
+    <h3>Activate Stripe Payments</h3>
+    <p>Replace the placeholder URLs in the <code>STRIPE_LINKS</code> object at the bottom of <code>index.html</code> with your real Stripe Payment Links.</p>
+    <div class="modal-step">
+      <strong>1.</strong> Go to <strong>dashboard.stripe.com → Payment Links</strong><br>
+      <strong>2.</strong> Create one link per plan (€200, €400, €1000, €50/mo)<br>
+      <strong>3.</strong> Paste the URLs into <code>STRIPE_LINKS</code> in the script<br>
+      <strong>4.</strong> Deploy — payments go live instantly
+    </div>
+    <button class="btn btn-dark" style="width:100%" onclick="closeModal()">Got it</button>
+  </div>
+</div>
+
+<script>
+// ── Replace these with your real Stripe Payment Link URLs ──────────────────
+const STRIPE_LINKS = {
+  basic:       'https://buy.stripe.com/REPLACE_BASIC',
+  medium:      'https://buy.stripe.com/REPLACE_MEDIUM',
+  advanced:    'https://buy.stripe.com/REPLACE_ADVANCED',
+  maintenance: 'https://buy.stripe.com/REPLACE_MAINTENANCE',
+};
+
+let activePlan = null;
+
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('up', scrollY > 10);
+});
+
+document.getElementById('burger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('in'), i * 70);
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+document.querySelectorAll('.pf').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pf').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    const f = btn.dataset.f;
+    document.querySelectorAll('.pc').forEach(card => {
+      card.style.display = (f === 'all' || card.dataset.tier === f) ? '' : 'none';
     });
+  });
+});
 
-    closeBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
+function selectPlan(plan) {
+  selectPayPlan(plan);
+  const sel = document.getElementById('contactService');
+  for (let o of sel.options) if (o.value === plan) { sel.value = plan; break; }
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+}
+
+function selectPayPlan(plan) {
+  activePlan = plan;
+  document.querySelectorAll('.po').forEach(el => {
+    el.classList.toggle('sel', el.dataset.plan === plan);
+  });
+}
+
+function handlePay() {
+  if (!activePlan) { alert('Please select a plan first.'); return; }
+  const url = STRIPE_LINKS[activePlan];
+  if (!url || url.includes('REPLACE')) { document.getElementById('modal').classList.add('open'); return; }
+  window.open(url, '_blank');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('formBtn');
+  btn.textContent = 'Sending…'; btn.disabled = true;
+  try {
+    const res = await fetch(this.action, {
+      method: 'POST', body: new FormData(this),
+      headers: { Accept: 'application/json' }
     });
-
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) modal.style.display = 'none';
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      messageDiv.style.display = 'none';
-
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          messageDiv.textContent = '¡Solicitud enviada! Te responderemos en breve.';
-          messageDiv.className = 'success';
-          messageDiv.style.display = 'block';
-          form.reset();
-        } else {
-          throw new Error('Error al enviar');
-        }
-      } catch (err) {
-        messageDiv.textContent = 'Hubo un problema al enviar. Intenta de nuevo o escríbenos directamente.';
-        messageDiv.style.background = 'rgba(255,100,100,0.2)';
-        messageDiv.style.color = '#ff9999';
-        messageDiv.style.display = 'block';
-      }
-    });
-  </script>
+    if (res.ok) {
+      this.reset();
+      document.getElementById('formOk').style.display = 'block';
+      btn.textContent = '✓ Sent!';
+    } else { btn.textContent = 'Error — try again'; btn.disabled = false; }
+  } catch { btn.textContent = 'Error — try again'; btn.disabled = false; }
+});
+</script>
 </body>
 </html>
